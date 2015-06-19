@@ -91,41 +91,43 @@ namespace CallOut_CAD
         private void btnSample1_Click(object sender, EventArgs e)
         {
             string incidentNo = "ICD-001";
-            string incidentTitle = "Fire in AMK Hub"; 
+            string incidentTitle = "Fire in AMK Hub";
 
-            IncidentLocation incidentlocation = new IncidentLocation();
+            Address incidentlocation = new Address();
             incidentlocation.Name = "AMK Hub";
-            incidentlocation.Address = "1 Ang Mo Kio Electronics Park Road";
+            incidentlocation.Street = "1 Ang Mo Kio Electronics Park Road";
             incidentlocation.Unit = "1234";
             incidentlocation.State = "SG";
             incidentlocation.City = "SG";
             incidentlocation.Country = "SG";
+            incidentlocation.PostalCode = "123456";
 
             string incidentType = "SMALL FIRE";
             int incidentAlarm = 1;
-            int incidentPriority = 1;
+            string incidentPriority = "1";
             DateTime dispatchDateTime = DateTime.Now;
 
-            IncidentUnits dispatchUnit1 = new IncidentUnits();
-            dispatchUnit1.Callsign = "A111";
+            DispatchedUnit dispatchUnit1 = new DispatchedUnit();
+            dispatchUnit1.ID = 123;
+            dispatchUnit1.CallSign = "A111";
             dispatchUnit1.UnitType = "Ambulance";
-            dispatchUnit1.FromStatus = "AB";
-            dispatchUnit1.UnitLocation = "Ang Mo Kio FS";
-            dispatchUnit1.UnitHomeStation = "Alexandra FS";
-            dispatchUnit1.UnitCurrentStation = "Ang Mo Kio FS";
+            dispatchUnit1.Status = "AB";
+            dispatchUnit1.Location = "Ang Mo Kio FS";
+            dispatchUnit1.HomeStation = "Alexandra FS";
+            dispatchUnit1.CurrentStation = "Ang Mo Kio FS";
 
-            IncidentUnits[] dispatchUnits = new IncidentUnits[1];
+            DispatchedUnit[] dispatchUnits = new DispatchedUnit[1];
             dispatchUnits[0] = dispatchUnit1;
 
-            CADIncidentMessage SampleMsg1 = new CADIncidentMessage();
-            SampleMsg1.IncidentNo = incidentNo;
+            DispatchedIncident SampleMsg1 = new DispatchedIncident();
+            SampleMsg1.IncidentNumber = incidentNo;
             SampleMsg1.IncidentTitle = incidentTitle;
             SampleMsg1.IncidentLocation = incidentlocation;
             SampleMsg1.IncidentType = incidentType;
-            SampleMsg1.IncidentAlarm = incidentAlarm;
-            SampleMsg1.IncidentPriority = incidentPriority;
-            SampleMsg1.DispatchDateTime = dispatchDateTime;
-            SampleMsg1.DispatchUnits = dispatchUnits;
+            SampleMsg1.AlarmLevel = incidentAlarm;
+            SampleMsg1.Priority = incidentPriority;
+            SampleMsg1.DateTime = dispatchDateTime;
+            SampleMsg1.ListOfUnits = dispatchUnits;
 
             _CallOut_CADService.SendCADIncidentMsg(SampleMsg1);
         }
@@ -136,48 +138,51 @@ namespace CallOut_CAD
             string incidentNo = "ICD-002";
             string incidentTitle = "Fire in AMK Hub";
 
-            IncidentLocation incidentlocation = new IncidentLocation();
+            Address incidentlocation = new Address();
             incidentlocation.Name = "AMK Hub";
-            incidentlocation.Address = "1 Ang Mo Kio Electronics Park Road";
+            incidentlocation.Street = "1 Ang Mo Kio Electronics Park Road";
             incidentlocation.Unit = "1234";
             incidentlocation.State = "SG";
             incidentlocation.City = "SG";
             incidentlocation.Country = "SG";
+            incidentlocation.PostalCode = "123456";
 
             string incidentType = "SMALL FIRE";
             int incidentAlarm = 1;
-            int incidentPriority = 1;
+            string incidentPriority = "1";
             DateTime dispatchDateTime = DateTime.Now;
 
-            IncidentUnits dispatchUnit1 = new IncidentUnits();
-            dispatchUnit1.Callsign = "A111";
+            DispatchedUnit dispatchUnit1 = new DispatchedUnit();
+            dispatchUnit1.ID = 123;
+            dispatchUnit1.CallSign = "A111";
             dispatchUnit1.UnitType = "Ambulance";
-            dispatchUnit1.FromStatus = "AB";
-            dispatchUnit1.UnitLocation = "Ang Mo Kio FS";
-            dispatchUnit1.UnitHomeStation = "Alexandra FS";
-            dispatchUnit1.UnitCurrentStation = "Ang Mo Kio FS";
+            dispatchUnit1.Status = "AB";
+            dispatchUnit1.Location = "Ang Mo Kio FS";
+            dispatchUnit1.HomeStation = "Alexandra FS";
+            dispatchUnit1.CurrentStation = "Ang Mo Kio FS";
 
-            IncidentUnits dispatchUnit2 = new IncidentUnits();
-            dispatchUnit2.Callsign = "A112";
+            DispatchedUnit dispatchUnit2 = new DispatchedUnit();
+            dispatchUnit1.ID = 789;
+            dispatchUnit2.CallSign = "A222";
             dispatchUnit2.UnitType = "Ambulance";
-            dispatchUnit2.FromStatus = "AB";
-            dispatchUnit2.UnitLocation = "Ang Mo Kio FS";
-            dispatchUnit2.UnitHomeStation = "Alexandra FS";
-            dispatchUnit2.UnitCurrentStation = "Central FS";
+            dispatchUnit2.Status = "AB";
+            dispatchUnit2.Location = "Ang Mo Kio FS";
+            dispatchUnit2.HomeStation = "Alexandra FS";
+            dispatchUnit2.CurrentStation = "Central FS";
 
-            IncidentUnits[] dispatchUnits = new IncidentUnits[2];
+            DispatchedUnit[] dispatchUnits = new DispatchedUnit[2];
             dispatchUnits[0] = dispatchUnit1;
             dispatchUnits[1] = dispatchUnit2;
 
-            CADIncidentMessage SampleMsg2 = new CADIncidentMessage();
-            SampleMsg2.IncidentNo = incidentNo;
+            DispatchedIncident SampleMsg2 = new DispatchedIncident();
+            SampleMsg2.IncidentNumber = incidentNo;
             SampleMsg2.IncidentTitle = incidentTitle;
             SampleMsg2.IncidentLocation = incidentlocation;
             SampleMsg2.IncidentType = incidentType;
-            SampleMsg2.IncidentAlarm = incidentAlarm;
-            SampleMsg2.IncidentPriority = incidentPriority;
-            SampleMsg2.DispatchDateTime = dispatchDateTime;
-            SampleMsg2.DispatchUnits = dispatchUnits;
+            SampleMsg2.AlarmLevel = incidentAlarm;
+            SampleMsg2.Priority = incidentPriority;
+            SampleMsg2.DateTime = dispatchDateTime;
+            SampleMsg2.ListOfUnits = dispatchUnits;
 
             _CallOut_CADService.SendCADIncidentMsg(SampleMsg2);
         }
@@ -188,48 +193,51 @@ namespace CallOut_CAD
             string incidentNo = "ICD-003";
             string incidentTitle = "Fire in AMK Hub";
 
-            IncidentLocation incidentlocation = new IncidentLocation();
+            Address incidentlocation = new Address();
             incidentlocation.Name = "AMK Hub";
-            incidentlocation.Address = "1 Ang Mo Kio Electronics Park Road";
+            incidentlocation.Street = "1 Ang Mo Kio Electronics Park Road";
             incidentlocation.Unit = "1234";
             incidentlocation.State = "SG";
             incidentlocation.City = "SG";
             incidentlocation.Country = "SG";
+            incidentlocation.PostalCode = "123456";
 
             string incidentType = "SMALL FIRE";
             int incidentAlarm = 1;
-            int incidentPriority = 1;
+            string incidentPriority = "1";
             DateTime dispatchDateTime = DateTime.Now;
 
-            IncidentUnits dispatchUnit1 = new IncidentUnits();
-            dispatchUnit1.Callsign = "A111";
+            DispatchedUnit dispatchUnit1 = new DispatchedUnit();
+            dispatchUnit1.ID = 123;
+            dispatchUnit1.CallSign = "A111";
             dispatchUnit1.UnitType = "Ambulance";
-            dispatchUnit1.FromStatus = "AB";
-            dispatchUnit1.UnitLocation = "Ang Mo Kio FS";
-            dispatchUnit1.UnitHomeStation = "Alexandra FS";
-            dispatchUnit1.UnitCurrentStation = "Ang Mo Kio FS";
+            dispatchUnit1.Status = "AB";
+            dispatchUnit1.Location = "Ang Mo Kio FS";
+            dispatchUnit1.HomeStation = "Alexandra FS";
+            dispatchUnit1.CurrentStation = "Ang Mo Kio FS";
 
-            IncidentUnits dispatchUnit2 = new IncidentUnits();
-            dispatchUnit2.Callsign = "A112";
+            DispatchedUnit dispatchUnit2 = new DispatchedUnit();
+            dispatchUnit2.ID = 123;
+            dispatchUnit2.CallSign = "A112";
             dispatchUnit2.UnitType = "Ambulance";
-            dispatchUnit2.FromStatus = "AB";
-            dispatchUnit2.UnitLocation = "Ang Mo Kio FS";
-            dispatchUnit2.UnitHomeStation = "Alexandra FS";
-            dispatchUnit2.UnitCurrentStation = "Ang Mo Kio FS";
+            dispatchUnit2.Status = "AB";
+            dispatchUnit2.Location = "Ang Mo Kio FS";
+            dispatchUnit2.HomeStation = "Alexandra FS";
+            dispatchUnit2.CurrentStation = "Ang Mo Kio FS";
 
-            IncidentUnits[] dispatchUnits = new IncidentUnits[2];
+            DispatchedUnit[] dispatchUnits = new DispatchedUnit[2];
             dispatchUnits[0] = dispatchUnit1;
             dispatchUnits[1] = dispatchUnit2;
 
-            CADIncidentMessage SampleMsg3 = new CADIncidentMessage();
-            SampleMsg3.IncidentNo = incidentNo;
+            DispatchedIncident SampleMsg3 = new DispatchedIncident();
+            SampleMsg3.IncidentNumber = incidentNo;
             SampleMsg3.IncidentTitle = incidentTitle;
             SampleMsg3.IncidentLocation = incidentlocation;
             SampleMsg3.IncidentType = incidentType;
-            SampleMsg3.IncidentAlarm = incidentAlarm;
-            SampleMsg3.IncidentPriority = incidentPriority;
-            SampleMsg3.DispatchDateTime = dispatchDateTime;
-            SampleMsg3.DispatchUnits = dispatchUnits;
+            SampleMsg3.AlarmLevel = incidentAlarm;
+            SampleMsg3.Priority = incidentPriority;
+            SampleMsg3.DateTime = dispatchDateTime;
+            SampleMsg3.ListOfUnits = dispatchUnits;
 
             _CallOut_CADService.SendCADIncidentMsg(SampleMsg3);
         }
@@ -410,7 +418,7 @@ namespace CallOut_CAD
         }
 
         #region Method not for CAD
-        public void RcvCADIncidentMsg(CADIncidentMessage CADincidentMsg)
+        public void RcvCADIncidentMsg(DispatchedIncident CADincidentMsg)
         { }
         public void IncidentCodingStatus(string querycodingID)
         { }

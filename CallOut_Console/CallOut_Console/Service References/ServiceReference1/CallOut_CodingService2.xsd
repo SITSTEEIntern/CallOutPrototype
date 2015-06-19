@@ -23,7 +23,7 @@
       <xs:element minOccurs="0" name="IncidentAlarm" type="xs:int" />
       <xs:element minOccurs="0" name="IncidentLocation" nillable="true" type="tns:CodingLocation" />
       <xs:element minOccurs="0" name="IncidentNo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IncidentPriority" type="xs:int" />
+      <xs:element minOccurs="0" name="IncidentPriority" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IncidentTitle" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IncidentType" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -39,6 +39,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Callsign" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FromStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="xs:long" />
       <xs:element minOccurs="0" name="UnitCurrentStation" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UnitHomeStation" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UnitLocation" nillable="true" type="xs:string" />
@@ -48,11 +49,12 @@
   <xs:element name="CodingUnits" nillable="true" type="tns:CodingUnits" />
   <xs:complexType name="CodingLocation">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Street" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

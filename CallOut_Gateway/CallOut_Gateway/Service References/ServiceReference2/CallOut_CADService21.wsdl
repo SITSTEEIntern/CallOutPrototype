@@ -4,8 +4,9 @@
     <xsd:schema targetNamespace="CallOut_CADServiceLib/Imports">
       <xsd:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd0" namespace="CallOut_CADServiceLib" />
       <xsd:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" />
-      <xsd:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/gCAD.Shared.IntegrationContract" />
+      <xsd:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" />
+      <xsd:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="CallOut_CADService_CADJoin_InputMessage">
@@ -46,6 +47,12 @@
   </wsdl:message>
   <wsdl:message name="CallOut_CADService_IncidentCodingStatusResponse_InputMessage">
     <wsdl:part name="parameters" element="tns:IncidentCodingStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="CallOut_CADService_IncidentDispatched_InputMessage">
+    <wsdl:part name="parameters" element="tns:IncidentDispatched" />
+  </wsdl:message>
+  <wsdl:message name="CallOut_CADService_IncidentDispatched_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IncidentDispatchedResponse" />
   </wsdl:message>
   <wsdl:message name="CallOut_CADService_RcvCADIncidentMsg_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RcvCADIncidentMsg" />
@@ -93,6 +100,10 @@
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="IncidentCodingStatusResponse">
       <wsdl:input wsaw:Action="CallOut_CADServiceLib/CallOut_CADService/IncidentCodingStatusResponse" message="tns:CallOut_CADService_IncidentCodingStatusResponse_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="IncidentDispatched">
+      <wsdl:input wsaw:Action="CallOut_CADServiceLib/CallOut_CADService/IncidentDispatched" message="tns:CallOut_CADService_IncidentDispatched_InputMessage" />
+      <wsdl:output wsaw:Action="CallOut_CADServiceLib/CallOut_CADService/IncidentDispatchedResponse" message="tns:CallOut_CADService_IncidentDispatched_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="RcvCADIncidentMsg">
       <wsdl:output wsaw:Action="CallOut_CADServiceLib/CallOut_CADService/RcvCADIncidentMsg" message="tns:CallOut_CADService_RcvCADIncidentMsg_OutputCallbackMessage" />

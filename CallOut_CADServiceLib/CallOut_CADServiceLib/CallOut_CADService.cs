@@ -7,6 +7,9 @@ using System.Diagnostics; //for debug
 using System.ServiceModel;// for WCF to happen
 using System.Runtime.Serialization;//datacontract
 
+//From CAD people
+using gCAD.Shared.IntegrationContract;
+
 namespace CallOut_CADServiceLib
 {
     /// <summary>
@@ -35,7 +38,7 @@ namespace CallOut_CADServiceLib
         //*CAD Incident Message*
         //Call by CAD 
         [OperationContract(IsOneWay = true)]
-        void SendCADIncidentMsg(CADIncidentMessage CADincidentmsg);
+        void SendCADIncidentMsg(DispatchedIncident CADincidentmsg);
 
         //*CAD Incident Acknowlegement*
         //Call by Gateway
@@ -57,13 +60,22 @@ namespace CallOut_CADServiceLib
         [OperationContract(IsOneWay = true)]
         void IncidentCodingStatusResponse(CADIncidentAck codingstatusresponse);
 
+        
+        //From CAD people
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="incident"></param>
+        [OperationContract]
+        void IncidentDispatched(DispatchedIncident incident);
+
     }
 
     public interface IMessageServiceCallback
     {
         //Receive at Gateway the information from CAD and thus trigger to pass to Console
         [OperationContract(IsOneWay = true)]
-        void RcvCADIncidentMsg(CADIncidentMessage CADincidentMsg);
+        void RcvCADIncidentMsg(DispatchedIncident CADincidentMsg);
 
         //Receive Ack from gateway and update according at the CAD
         [OperationContract(IsOneWay = true)]
@@ -158,7 +170,7 @@ namespace CallOut_CADServiceLib
         }
 
         //The passing of CAD Incident Message from CAD to Gateway
-        public void SendCADIncidentMsg(CADIncidentMessage CADincidentmsg)
+        public void SendCADIncidentMsg(DispatchedIncident CADincidentmsg)
         {
             _GatewayCallbackList.ForEach(
                 delegate(IMessageServiceCallback gatewaycallback)
@@ -205,6 +217,17 @@ namespace CallOut_CADServiceLib
                 });
         }
 
+        //From CAD People
+        public void IncidentDispatched(DispatchedIncident incident)
+        {
+            
+
+            foreach (DispatchedUnit unit in incident.ListOfUnits)
+            {
+
+            }
+        }
+
     }
 
     //Custon Class Object
@@ -213,15 +236,18 @@ namespace CallOut_CADServiceLib
     public class IncidentLocation
     {
         [DataMember]
-        public string Name { get; set; }
+        public string Unit { get; set; }
         [DataMember]
         public string Address { get; set; }
         [DataMember]
-        public string Unit { get; set; }
+        public string City { get; set; }
         [DataMember]
         public string State { get; set; }
         [DataMember]
-        public string City { get; set; }
+        public string PostalCode { get; set; } //?? required
+
+        [DataMember]
+        public string Name { get; set; }
         [DataMember]
         public string Country { get; set; }
     }
@@ -230,9 +256,9 @@ namespace CallOut_CADServiceLib
     public class IncidentUnits
     {
         [DataMember]
-        public string Callsign { get; set; }
+        public long ID { get; set; }
         [DataMember]
-        public string UnitType { get; set; }
+        public string Callsign { get; set; }
         [DataMember]
         public string FromStatus { get; set; }
         [DataMember]
@@ -241,6 +267,9 @@ namespace CallOut_CADServiceLib
         public string UnitHomeStation { get; set; }
         [DataMember]
         public string UnitCurrentStation { get; set; }
+
+        [DataMember]
+        public string UnitType { get; set; }
     }
 
     [DataContract]
@@ -257,7 +286,7 @@ namespace CallOut_CADServiceLib
         [DataMember]
         public int IncidentAlarm { get; set; }
         [DataMember]
-        public int IncidentPriority { get; set; }
+        public string IncidentPriority { get; set; }
         [DataMember]
         public DateTime DispatchDateTime { get; set; }
         [DataMember]

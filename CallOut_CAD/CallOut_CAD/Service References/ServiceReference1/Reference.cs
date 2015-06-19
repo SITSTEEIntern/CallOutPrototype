@@ -15,36 +15,36 @@ namespace CallOut_CAD.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CADIncidentMessage", Namespace="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DispatchedIncident", Namespace="http://schemas.datacontract.org/2004/07/gCAD.Shared.IntegrationContract")]
     [System.SerializableAttribute()]
-    public partial class CADIncidentMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class DispatchedIncident : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime DispatchDateTimeField;
+        private int AlarmLevelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CallOut_CAD.ServiceReference1.IncidentUnits[] DispatchUnitsField;
+        private System.DateTime DateTimeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IncidentAlarmField;
+        private CallOut_CAD.ServiceReference1.Address IncidentLocationField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CallOut_CAD.ServiceReference1.IncidentLocation IncidentLocationField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string IncidentNoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IncidentPriorityField;
+        private string IncidentNumberField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IncidentTitleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IncidentTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CallOut_CAD.ServiceReference1.DispatchedUnit[] ListOfUnitsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PriorityField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -57,46 +57,33 @@ namespace CallOut_CAD.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime DispatchDateTime {
+        public int AlarmLevel {
             get {
-                return this.DispatchDateTimeField;
+                return this.AlarmLevelField;
             }
             set {
-                if ((this.DispatchDateTimeField.Equals(value) != true)) {
-                    this.DispatchDateTimeField = value;
-                    this.RaisePropertyChanged("DispatchDateTime");
+                if ((this.AlarmLevelField.Equals(value) != true)) {
+                    this.AlarmLevelField = value;
+                    this.RaisePropertyChanged("AlarmLevel");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CallOut_CAD.ServiceReference1.IncidentUnits[] DispatchUnits {
+        public System.DateTime DateTime {
             get {
-                return this.DispatchUnitsField;
+                return this.DateTimeField;
             }
             set {
-                if ((object.ReferenceEquals(this.DispatchUnitsField, value) != true)) {
-                    this.DispatchUnitsField = value;
-                    this.RaisePropertyChanged("DispatchUnits");
+                if ((this.DateTimeField.Equals(value) != true)) {
+                    this.DateTimeField = value;
+                    this.RaisePropertyChanged("DateTime");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IncidentAlarm {
-            get {
-                return this.IncidentAlarmField;
-            }
-            set {
-                if ((this.IncidentAlarmField.Equals(value) != true)) {
-                    this.IncidentAlarmField = value;
-                    this.RaisePropertyChanged("IncidentAlarm");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public CallOut_CAD.ServiceReference1.IncidentLocation IncidentLocation {
+        public CallOut_CAD.ServiceReference1.Address IncidentLocation {
             get {
                 return this.IncidentLocationField;
             }
@@ -109,27 +96,14 @@ namespace CallOut_CAD.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string IncidentNo {
+        public string IncidentNumber {
             get {
-                return this.IncidentNoField;
+                return this.IncidentNumberField;
             }
             set {
-                if ((object.ReferenceEquals(this.IncidentNoField, value) != true)) {
-                    this.IncidentNoField = value;
-                    this.RaisePropertyChanged("IncidentNo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IncidentPriority {
-            get {
-                return this.IncidentPriorityField;
-            }
-            set {
-                if ((this.IncidentPriorityField.Equals(value) != true)) {
-                    this.IncidentPriorityField = value;
-                    this.RaisePropertyChanged("IncidentPriority");
+                if ((object.ReferenceEquals(this.IncidentNumberField, value) != true)) {
+                    this.IncidentNumberField = value;
+                    this.RaisePropertyChanged("IncidentNumber");
                 }
             }
         }
@@ -160,6 +134,32 @@ namespace CallOut_CAD.ServiceReference1 {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CallOut_CAD.ServiceReference1.DispatchedUnit[] ListOfUnits {
+            get {
+                return this.ListOfUnitsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ListOfUnitsField, value) != true)) {
+                    this.ListOfUnitsField = value;
+                    this.RaisePropertyChanged("ListOfUnits");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Priority {
+            get {
+                return this.PriorityField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PriorityField, value) != true)) {
+                    this.PriorityField = value;
+                    this.RaisePropertyChanged("Priority");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -172,15 +172,12 @@ namespace CallOut_CAD.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="IncidentLocation", Namespace="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Address", Namespace="http://schemas.datacontract.org/2004/07/gCAD.Shared.IntegrationContract")]
     [System.SerializableAttribute()]
-    public partial class IncidentLocation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class Address : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AddressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CityField;
@@ -192,7 +189,13 @@ namespace CallOut_CAD.ServiceReference1 {
         private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostalCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string StateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StreetField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UnitField;
@@ -204,19 +207,6 @@ namespace CallOut_CAD.ServiceReference1 {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Address {
-            get {
-                return this.AddressField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
-                    this.AddressField = value;
-                    this.RaisePropertyChanged("Address");
-                }
             }
         }
         
@@ -260,6 +250,19 @@ namespace CallOut_CAD.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostalCode {
+            get {
+                return this.PostalCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostalCodeField, value) != true)) {
+                    this.PostalCodeField = value;
+                    this.RaisePropertyChanged("PostalCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string State {
             get {
                 return this.StateField;
@@ -268,6 +271,19 @@ namespace CallOut_CAD.ServiceReference1 {
                 if ((object.ReferenceEquals(this.StateField, value) != true)) {
                     this.StateField = value;
                     this.RaisePropertyChanged("State");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Street {
+            get {
+                return this.StreetField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StreetField, value) != true)) {
+                    this.StreetField = value;
+                    this.RaisePropertyChanged("Street");
                 }
             }
         }
@@ -297,27 +313,30 @@ namespace CallOut_CAD.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="IncidentUnits", Namespace="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DispatchedUnit", Namespace="http://schemas.datacontract.org/2004/07/gCAD.Shared.IntegrationContract")]
     [System.SerializableAttribute()]
-    public partial class IncidentUnits : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class DispatchedUnit : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CallsignField;
+        private string CallSignField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FromStatusField;
+        private string CurrentStationField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnitCurrentStationField;
+        private string HomeStationField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnitHomeStationField;
+        private long IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnitLocationField;
+        private string LocationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UnitTypeField;
@@ -333,66 +352,79 @@ namespace CallOut_CAD.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Callsign {
+        public string CallSign {
             get {
-                return this.CallsignField;
+                return this.CallSignField;
             }
             set {
-                if ((object.ReferenceEquals(this.CallsignField, value) != true)) {
-                    this.CallsignField = value;
-                    this.RaisePropertyChanged("Callsign");
+                if ((object.ReferenceEquals(this.CallSignField, value) != true)) {
+                    this.CallSignField = value;
+                    this.RaisePropertyChanged("CallSign");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FromStatus {
+        public string CurrentStation {
             get {
-                return this.FromStatusField;
+                return this.CurrentStationField;
             }
             set {
-                if ((object.ReferenceEquals(this.FromStatusField, value) != true)) {
-                    this.FromStatusField = value;
-                    this.RaisePropertyChanged("FromStatus");
+                if ((object.ReferenceEquals(this.CurrentStationField, value) != true)) {
+                    this.CurrentStationField = value;
+                    this.RaisePropertyChanged("CurrentStation");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnitCurrentStation {
+        public string HomeStation {
             get {
-                return this.UnitCurrentStationField;
+                return this.HomeStationField;
             }
             set {
-                if ((object.ReferenceEquals(this.UnitCurrentStationField, value) != true)) {
-                    this.UnitCurrentStationField = value;
-                    this.RaisePropertyChanged("UnitCurrentStation");
+                if ((object.ReferenceEquals(this.HomeStationField, value) != true)) {
+                    this.HomeStationField = value;
+                    this.RaisePropertyChanged("HomeStation");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnitHomeStation {
+        public long ID {
             get {
-                return this.UnitHomeStationField;
+                return this.IDField;
             }
             set {
-                if ((object.ReferenceEquals(this.UnitHomeStationField, value) != true)) {
-                    this.UnitHomeStationField = value;
-                    this.RaisePropertyChanged("UnitHomeStation");
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnitLocation {
+        public string Location {
             get {
-                return this.UnitLocationField;
+                return this.LocationField;
             }
             set {
-                if ((object.ReferenceEquals(this.UnitLocationField, value) != true)) {
-                    this.UnitLocationField = value;
-                    this.RaisePropertyChanged("UnitLocation");
+                if ((object.ReferenceEquals(this.LocationField, value) != true)) {
+                    this.LocationField = value;
+                    this.RaisePropertyChanged("Location");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Status {
+            get {
+                return this.StatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
                 }
             }
         }
@@ -776,10 +808,10 @@ namespace CallOut_CAD.ServiceReference1 {
         System.Threading.Tasks.Task GatewayLeaveAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CADServiceLib/CallOut_CADService/SendCADIncidentMsg")]
-        void SendCADIncidentMsg(CallOut_CAD.ServiceReference1.CADIncidentMessage CADincidentmsg);
+        void SendCADIncidentMsg(CallOut_CAD.ServiceReference1.DispatchedIncident CADincidentmsg);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CADServiceLib/CallOut_CADService/SendCADIncidentMsg")]
-        System.Threading.Tasks.Task SendCADIncidentMsgAsync(CallOut_CAD.ServiceReference1.CADIncidentMessage CADincidentmsg);
+        System.Threading.Tasks.Task SendCADIncidentMsgAsync(CallOut_CAD.ServiceReference1.DispatchedIncident CADincidentmsg);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CADServiceLib/CallOut_CADService/AckCADIncidentMsg")]
         void AckCADIncidentMsg(CallOut_CAD.ServiceReference1.CADIncidentAck CADincidentack);
@@ -804,13 +836,19 @@ namespace CallOut_CAD.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CADServiceLib/CallOut_CADService/IncidentCodingStatusResponse")]
         System.Threading.Tasks.Task IncidentCodingStatusResponseAsync(CallOut_CAD.ServiceReference1.CADIncidentAck codingstatusresponse);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="CallOut_CADServiceLib/CallOut_CADService/IncidentDispatched", ReplyAction="CallOut_CADServiceLib/CallOut_CADService/IncidentDispatchedResponse")]
+        void IncidentDispatched(CallOut_CAD.ServiceReference1.DispatchedIncident incident);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="CallOut_CADServiceLib/CallOut_CADService/IncidentDispatched", ReplyAction="CallOut_CADServiceLib/CallOut_CADService/IncidentDispatchedResponse")]
+        System.Threading.Tasks.Task IncidentDispatchedAsync(CallOut_CAD.ServiceReference1.DispatchedIncident incident);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface CallOut_CADServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CADServiceLib/CallOut_CADService/RcvCADIncidentMsg")]
-        void RcvCADIncidentMsg(CallOut_CAD.ServiceReference1.CADIncidentMessage CADincidentMsg);
+        void RcvCADIncidentMsg(CallOut_CAD.ServiceReference1.DispatchedIncident CADincidentMsg);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CADServiceLib/CallOut_CADService/UpdateCADIncidentAck")]
         void UpdateCADIncidentAck(CallOut_CAD.ServiceReference1.CADIncidentAck CADincidentack);
@@ -885,11 +923,11 @@ namespace CallOut_CAD.ServiceReference1 {
             return base.Channel.GatewayLeaveAsync();
         }
         
-        public void SendCADIncidentMsg(CallOut_CAD.ServiceReference1.CADIncidentMessage CADincidentmsg) {
+        public void SendCADIncidentMsg(CallOut_CAD.ServiceReference1.DispatchedIncident CADincidentmsg) {
             base.Channel.SendCADIncidentMsg(CADincidentmsg);
         }
         
-        public System.Threading.Tasks.Task SendCADIncidentMsgAsync(CallOut_CAD.ServiceReference1.CADIncidentMessage CADincidentmsg) {
+        public System.Threading.Tasks.Task SendCADIncidentMsgAsync(CallOut_CAD.ServiceReference1.DispatchedIncident CADincidentmsg) {
             return base.Channel.SendCADIncidentMsgAsync(CADincidentmsg);
         }
         
@@ -923,6 +961,14 @@ namespace CallOut_CAD.ServiceReference1 {
         
         public System.Threading.Tasks.Task IncidentCodingStatusResponseAsync(CallOut_CAD.ServiceReference1.CADIncidentAck codingstatusresponse) {
             return base.Channel.IncidentCodingStatusResponseAsync(codingstatusresponse);
+        }
+        
+        public void IncidentDispatched(CallOut_CAD.ServiceReference1.DispatchedIncident incident) {
+            base.Channel.IncidentDispatched(incident);
+        }
+        
+        public System.Threading.Tasks.Task IncidentDispatchedAsync(CallOut_CAD.ServiceReference1.DispatchedIncident incident) {
+            return base.Channel.IncidentDispatchedAsync(incident);
         }
     }
 }

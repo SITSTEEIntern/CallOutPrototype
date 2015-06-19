@@ -22,6 +22,7 @@
     <MetadataSource Address="http://localhost:8082/CallOut_CADService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="CallOut_CADService.xsd" MetadataType="Schema" ID="25330ea0-77b1-4e35-83a4-922f6a75d711" SourceId="1" SourceUrl="http://localhost:8082/CallOut_CADService?xsd=xsd4" />
     <MetadataFile FileName="CallOut_CADService2.wsdl" MetadataType="Wsdl" ID="c2e019e4-1ec8-40f9-a3ba-37276f991567" SourceId="1" SourceUrl="http://localhost:8082/CallOut_CADService?wsdl" />
     <MetadataFile FileName="CallOut_CADService1.disco" MetadataType="Disco" ID="f9d0cd46-3013-4e2a-bc44-f460fa63be4a" SourceId="1" SourceUrl="http://localhost:8082/CallOut_CADService?disco" />
     <MetadataFile FileName="CallOut_CADService21.wsdl" MetadataType="Wsdl" ID="75794c1f-69f4-44b2-98f0-c72a23cd5c16" SourceId="1" SourceUrl="http://localhost:8082/CallOut_CADService?wsdl=wsdl0" />

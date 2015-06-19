@@ -102,6 +102,9 @@
     <None Include="Service References\ServiceReference1\CallOut_Gateway.ServiceReference1.StationStatus.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\ServiceReference2\CallOut_CADService.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceReference2\CallOut_CADService2.wsdl" />
     <None Include="Service References\ServiceReference2\CallOut_CADService21.wsdl" />
     <None Include="Service References\ServiceReference2\CallOut_CADService4.xsd">

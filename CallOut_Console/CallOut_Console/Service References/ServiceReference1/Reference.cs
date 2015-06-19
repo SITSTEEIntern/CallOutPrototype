@@ -118,7 +118,7 @@ namespace CallOut_Console.ServiceReference1 {
         private string IncidentNoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IncidentPriorityField;
+        private string IncidentPriorityField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IncidentTitleField;
@@ -215,12 +215,12 @@ namespace CallOut_Console.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IncidentPriority {
+        public string IncidentPriority {
             get {
                 return this.IncidentPriorityField;
             }
             set {
-                if ((this.IncidentPriorityField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.IncidentPriorityField, value) != true)) {
                     this.IncidentPriorityField = value;
                     this.RaisePropertyChanged("IncidentPriority");
                 }
@@ -273,9 +273,6 @@ namespace CallOut_Console.ServiceReference1 {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AddressField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CityField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -285,7 +282,13 @@ namespace CallOut_Console.ServiceReference1 {
         private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostalCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string StateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StreetField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UnitField;
@@ -297,19 +300,6 @@ namespace CallOut_Console.ServiceReference1 {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Address {
-            get {
-                return this.AddressField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
-                    this.AddressField = value;
-                    this.RaisePropertyChanged("Address");
-                }
             }
         }
         
@@ -353,6 +343,19 @@ namespace CallOut_Console.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostalCode {
+            get {
+                return this.PostalCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostalCodeField, value) != true)) {
+                    this.PostalCodeField = value;
+                    this.RaisePropertyChanged("PostalCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string State {
             get {
                 return this.StateField;
@@ -361,6 +364,19 @@ namespace CallOut_Console.ServiceReference1 {
                 if ((object.ReferenceEquals(this.StateField, value) != true)) {
                     this.StateField = value;
                     this.RaisePropertyChanged("State");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Street {
+            get {
+                return this.StreetField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StreetField, value) != true)) {
+                    this.StreetField = value;
+                    this.RaisePropertyChanged("Street");
                 }
             }
         }
@@ -402,6 +418,9 @@ namespace CallOut_Console.ServiceReference1 {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FromStatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UnitCurrentStationField;
@@ -447,6 +466,19 @@ namespace CallOut_Console.ServiceReference1 {
                 if ((object.ReferenceEquals(this.FromStatusField, value) != true)) {
                     this.FromStatusField = value;
                     this.RaisePropertyChanged("FromStatus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
                 }
             }
         }

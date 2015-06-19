@@ -643,18 +643,20 @@ namespace CallOut_Gateway
 
             CodingLocation testlocation = new CodingLocation();
             testlocation.Name = "Test Location";
-            testlocation.Address = "Test Address";
+            testlocation.Street = "Test Address";
             testlocation.Unit = "Test Unit";
             testlocation.State = "Test State";
             testlocation.City = "Test City";
             testlocation.Country = "Test Country";
+            testlocation.PostalCode = "123456";
 
             string testType = "Test Type";
             int testAlarm = 0;
-            int testPriority = 0;
+            string testPriority = "0";
             DateTime testDateTime = DateTime.Now;
 
             CodingUnits testUnit1 = new CodingUnits();
+            testUnit1.ID = 123;
             testUnit1.Callsign = "T100";
             testUnit1.UnitType = "Test Unit 1";
             testUnit1.FromStatus = "";
@@ -663,6 +665,7 @@ namespace CallOut_Gateway
             testUnit1.UnitCurrentStation = "";
 
             CodingUnits testUnit2 = new CodingUnits();
+            testUnit1.ID = 456;
             testUnit2.Callsign = "T200";
             testUnit2.UnitType = "Test Unit 2";
             testUnit2.FromStatus = "";
@@ -696,18 +699,20 @@ namespace CallOut_Gateway
 
             CodingLocation testlocation = new CodingLocation();
             testlocation.Name = "Test Location";
-            testlocation.Address = "Test Address";
+            testlocation.Street = "Test Address";
             testlocation.Unit = "Test Unit";
             testlocation.State = "Test State";
             testlocation.City = "Test City";
             testlocation.Country = "Test Country";
+            testlocation.PostalCode = "123456";
 
             string testType = "Test Type";
             int testAlarm = 0;
-            int testPriority = 0;
+            string testPriority = "0";
             DateTime testDateTime = DateTime.Now;
 
             CodingUnits testUnit1 = new CodingUnits();
+            testUnit1.ID = 123;
             testUnit1.Callsign = "T300";
             testUnit1.UnitType = "Test Unit 3";
             testUnit1.FromStatus = "";
@@ -716,6 +721,7 @@ namespace CallOut_Gateway
             testUnit1.UnitCurrentStation = "";
 
             CodingUnits testUnit2 = new CodingUnits();
+            testUnit2.ID = 456;
             testUnit2.Callsign = "T400";
             testUnit2.UnitType = "Test Unit 4";
             testUnit2.FromStatus = "";
@@ -980,7 +986,7 @@ namespace CallOut_Gateway
          * 2) Send the coding message to relevant console 
          * 3) Send Ack back to CAD in order to update mainly codingID
          */
-        public void RcvCADIncidentMsg(CADIncidentMessage CADincidentMsg)
+        public void RcvCADIncidentMsg(DispatchedIncident CADincidentMsg)
         {
             SendOrPostCallback callback =
                 delegate(object state)
@@ -988,24 +994,24 @@ namespace CallOut_Gateway
                     List<string> tmpstationList = new List<string>();
                     List<Tracking> trackingList = new List<Tracking>();
                     //Only take out the stations on the Current Station
-                    foreach (IncidentUnits uniqueunit in CADincidentMsg.DispatchUnits)
+                    foreach (DispatchedUnit uniqueunit in CADincidentMsg.ListOfUnits)
                     {
                         //Avoid duplicate station name in the list
-                        if (!tmpstationList.Contains(uniqueunit.UnitCurrentStation))
+                        if (!tmpstationList.Contains(uniqueunit.CurrentStation))
                         {
-                            tmpstationList.Add(uniqueunit.UnitCurrentStation);
+                            tmpstationList.Add(uniqueunit.CurrentStation);
                             Tracking newstation = new Tracking();
-                            newstation.Station = uniqueunit.UnitCurrentStation;
+                            newstation.Station = uniqueunit.CurrentStation;
                             newstation.Status = "Pending";
 
                             List<string> unitcallsign = new List<string>();
 
                             //To give relevant station units callsign
-                            foreach (IncidentUnits unit in CADincidentMsg.DispatchUnits)
+                            foreach (DispatchedUnit unit in CADincidentMsg.ListOfUnits)
                             {
-                                if (unit.UnitCurrentStation.Equals(uniqueunit.UnitCurrentStation))
+                                if (unit.CurrentStation.Equals(uniqueunit.CurrentStation))
                                 {
-                                    unitcallsign.Add(unit.Callsign);
+                                    unitcallsign.Add(unit.CallSign);
                                 }
                             }
 
@@ -1050,28 +1056,28 @@ namespace CallOut_Gateway
             _uiSyncContext.Post(callback, "Rcv Incident Message");
         }
 
-        public CodingIncidentMessage CovertIncidentToCoding(CADIncidentMessage CADincidentMsg)
+        public CodingIncidentMessage CovertIncidentToCoding(DispatchedIncident CADincidentMsg)
         {
             string codingID = _CallOut_CodingService.GetCodingID();
 
             CodingLocation incidentLocation = new CodingLocation();
             incidentLocation.Name = CADincidentMsg.IncidentLocation.Name;
-            incidentLocation.Address = CADincidentMsg.IncidentLocation.Address;
+            incidentLocation.Street = CADincidentMsg.IncidentLocation.Street;
             incidentLocation.Unit = CADincidentMsg.IncidentLocation.Unit;
             incidentLocation.State = CADincidentMsg.IncidentLocation.State;
             incidentLocation.City = CADincidentMsg.IncidentLocation.City;
             incidentLocation.Country = CADincidentMsg.IncidentLocation.Country;
 
             List<CodingUnits> tmpcodingunitList = new List<CodingUnits>();
-            foreach (IncidentUnits unit in CADincidentMsg.DispatchUnits)
+            foreach (DispatchedUnit unit in CADincidentMsg.ListOfUnits)
             {
                 CodingUnits newUnit = new CodingUnits();
-                newUnit.Callsign = unit.Callsign;
+                newUnit.Callsign = unit.CallSign;
                 newUnit.UnitType = unit.UnitType;
-                newUnit.FromStatus = unit.FromStatus;
-                newUnit.UnitLocation = unit.UnitLocation;
-                newUnit.UnitHomeStation = unit.UnitHomeStation;
-                newUnit.UnitCurrentStation = unit.UnitCurrentStation;
+                newUnit.FromStatus = unit.Status;
+                newUnit.UnitLocation = unit.Location;
+                newUnit.UnitHomeStation = unit.HomeStation;
+                newUnit.UnitCurrentStation = unit.CurrentStation;
 
                 tmpcodingunitList.Add(newUnit);
             }
@@ -1080,13 +1086,13 @@ namespace CallOut_Gateway
 
             CodingIncidentMessage codingIncidentMsg = new CodingIncidentMessage();
             codingIncidentMsg.CodingID = codingID;
-            codingIncidentMsg.IncidentNo = CADincidentMsg.IncidentNo;
+            codingIncidentMsg.IncidentNo = CADincidentMsg.IncidentNumber;
             codingIncidentMsg.IncidentTitle = CADincidentMsg.IncidentTitle;
             codingIncidentMsg.IncidentLocation = incidentLocation;
             codingIncidentMsg.IncidentType = CADincidentMsg.IncidentType;
-            codingIncidentMsg.IncidentAlarm = CADincidentMsg.IncidentAlarm;
-            codingIncidentMsg.IncidentPriority = CADincidentMsg.IncidentPriority;
-            codingIncidentMsg.DispatchDateTime = CADincidentMsg.DispatchDateTime;
+            codingIncidentMsg.IncidentAlarm = CADincidentMsg.AlarmLevel;
+            codingIncidentMsg.IncidentPriority = CADincidentMsg.Priority;
+            codingIncidentMsg.DispatchDateTime = CADincidentMsg.DateTime;
             codingIncidentMsg.DispatchUnits = dispatchUnits;
 
             return codingIncidentMsg;

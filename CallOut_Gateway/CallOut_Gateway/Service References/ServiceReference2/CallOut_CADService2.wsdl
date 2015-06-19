@@ -431,6 +431,52 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_CallOut_CADService_IncidentDispatched_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_CallOut_CADService_IncidentDispatched_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_CallOut_CADService_RcvCADIncidentMsg_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -617,6 +663,15 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="IncidentDispatched">
+      <soap12:operation soapAction="CallOut_CADServiceLib/CallOut_CADService/IncidentDispatched" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RcvCADIncidentMsg">
       <soap12:operation soapAction="CallOut_CADServiceLib/CallOut_CADService/RcvCADIncidentMsg" style="document" />
       <wsdl:output>
@@ -729,6 +784,17 @@
         <wsp:PolicyReference URI="#WSDualHttpBinding_CallOut_CADService_IncidentCodingStatusResponse_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="IncidentDispatched">
+      <soap12:operation soapAction="CallOut_CADServiceLib/CallOut_CADService/IncidentDispatched" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_CallOut_CADService_IncidentDispatched_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_CallOut_CADService_IncidentDispatched_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RcvCADIncidentMsg">
       <soap12:operation soapAction="CallOut_CADServiceLib/CallOut_CADService/RcvCADIncidentMsg" style="document" />

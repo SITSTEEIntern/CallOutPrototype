@@ -165,7 +165,7 @@ namespace CallOut_Console
             this.lblTitle.Text = codingIncidentMsg.IncidentTitle;
             this.lblNumber.Text = codingIncidentMsg.IncidentNo;
             this.lblName.Text = codingIncidentMsg.IncidentLocation.Name;
-            this.lblAddress.Text = codingIncidentMsg.IncidentLocation.Address;
+            this.lblAddress.Text = codingIncidentMsg.IncidentLocation.Street;
             this.lblState.Text = codingIncidentMsg.IncidentLocation.State;
             this.lblCity.Text = codingIncidentMsg.IncidentLocation.City;
             this.lblCountry.Text = codingIncidentMsg.IncidentLocation.Country;

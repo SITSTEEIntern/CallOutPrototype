@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="CallOut_CADServiceLib" elementFormDefault="qualified" targetNamespace="CallOut_CADServiceLib" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" />
+  <xs:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/gCAD.Shared.IntegrationContract" />
+  <xs:import schemaLocation="http://localhost:8082/CallOut_CADService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" />
   <xs:element name="CADJoin">
     <xs:complexType>
       <xs:sequence />
@@ -44,7 +45,7 @@
   <xs:element name="SendCADIncidentMsg">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" minOccurs="0" name="CADincidentmsg" nillable="true" type="q1:CADIncidentMessage" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/gCAD.Shared.IntegrationContract" minOccurs="0" name="CADincidentmsg" nillable="true" type="q1:DispatchedIncident" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -76,24 +77,36 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="IncidentDispatched">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/gCAD.Shared.IntegrationContract" minOccurs="0" name="incident" nillable="true" type="q5:DispatchedIncident" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IncidentDispatchedResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="RcvCADIncidentMsg">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" minOccurs="0" name="CADincidentMsg" nillable="true" type="q5:CADIncidentMessage" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/gCAD.Shared.IntegrationContract" minOccurs="0" name="CADincidentMsg" nillable="true" type="q6:DispatchedIncident" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateCADIncidentAck">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" minOccurs="0" name="CADincidentack" nillable="true" type="q6:CADIncidentAck" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" minOccurs="0" name="CADincidentack" nillable="true" type="q7:CADIncidentAck" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateIncidentCodingStatus">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" minOccurs="0" name="incidentcodingstatus" nillable="true" type="q7:CADIncidentCodingStatus" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" minOccurs="0" name="incidentcodingstatus" nillable="true" type="q8:CADIncidentCodingStatus" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -107,7 +120,7 @@
   <xs:element name="RcvIncidentCodingStatusResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" minOccurs="0" name="codingstatusresponse" nillable="true" type="q8:CADIncidentAck" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/CallOut_CADServiceLib" minOccurs="0" name="codingstatusresponse" nillable="true" type="q9:CADIncidentAck" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

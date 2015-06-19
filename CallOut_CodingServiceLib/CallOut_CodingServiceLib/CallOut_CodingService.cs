@@ -111,7 +111,7 @@ namespace CallOut_CodingServiceLib
             InstanceContextMode = InstanceContextMode.PerCall)]
 
     public class CallOut_CodingService : IMessageServiceInbound
-    {   
+    {
         //List of callback channel in order find the link back
         private static List<IMessageServiceCallback> _ConsoleCallbackList = new List<IMessageServiceCallback>();
         private static List<IMessageServiceCallback> _GatewayCallbackList = new List<IMessageServiceCallback>();
@@ -159,7 +159,7 @@ namespace CallOut_CodingServiceLib
          */
         public void UpdateStationStatus(string status, string station, string timestamp)
         {
-            foreach(StationStatus stationID in StationIDList)
+            foreach (StationStatus stationID in StationIDList)
             {
                 if (stationID.Station.Equals(station))
                 {
@@ -329,13 +329,13 @@ namespace CallOut_CodingServiceLib
 
         public void RequestConnStatus()
         {
-            foreach(string station in _ConnectedConsoleList)
+            foreach (string station in _ConnectedConsoleList)
             {
                 IMessageServiceCallback tmpCallback = _ConnectedConsoleDict[station];
                 if (((ICommunicationObject)tmpCallback).State == CommunicationState.Opened)
                 {
                     tmpCallback.ConsoleRcvConnStatus();
-                }                
+                }
             }
         }
 
@@ -354,19 +354,10 @@ namespace CallOut_CodingServiceLib
     [DataContract]
     public class CodingLocation
     {
-        //public Location(string name, string address, string unit, string state, string city, string country)
-        //{
-        //    Name = name;
-        //    Address = address;
-        //    Unit = unit;
-        //    State = state;
-        //    City = city;
-        //    Country = country;
-        //}
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public string Address { get; set; }
+        public string Street { get; set; }
         [DataMember]
         public string Unit { get; set; }
         [DataMember]
@@ -375,20 +366,16 @@ namespace CallOut_CodingServiceLib
         public string City { get; set; }
         [DataMember]
         public string Country { get; set; }
+
+        [DataMember]
+        public string PostalCode { get; set; }
     }
 
     [DataContract]
     public class CodingUnits
     {
-        //public Units(string callsign, string utype, string fromstatus, string ulocation, string uhomestation, string ucurrentstaion)
-        //{
-        //    Callsign = callsign;
-        //    UnitType = utype;
-        //    FromStatus = fromstatus;
-        //    UnitLocation = ulocation;
-        //    UnitHomeStation = uhomestation;
-        //    UnitCurrentStation = ucurrentstaion;
-        //}
+        [DataMember]
+        public long ID { get; set; }
         [DataMember]
         public string Callsign { get; set; }
         [DataMember]
@@ -420,7 +407,7 @@ namespace CallOut_CodingServiceLib
         [DataMember]
         public int IncidentAlarm { get; set; }
         [DataMember]
-        public int IncidentPriority { get; set; }
+        public string IncidentPriority { get; set; }
         [DataMember]
         public DateTime DispatchDateTime { get; set; }
         [DataMember]
