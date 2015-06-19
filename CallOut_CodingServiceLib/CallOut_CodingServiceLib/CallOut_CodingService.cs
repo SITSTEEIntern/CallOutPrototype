@@ -52,14 +52,21 @@ namespace CallOut_CodingServiceLib
         //Send test message from Gateway to Console 
         //(in a form of object same as how Gateway pass CAD message to Console)
         [OperationContract(IsOneWay = true)]
-        void BroadcastTestMsg(CodingIncidentMessage codingIncidentMsg);
-        [OperationContract(IsOneWay = true)]
         void TargetMsg(List<string> addressList, CodingIncidentMessage codingIncidentMsg);
 
         //*Coding Ack Message*
         //Reply coding ack msg back to gateway
         [OperationContract(IsOneWay = true)]
         void AckCodingIncidentMsg(CodingAckMessage codingAckMsg);
+
+        //*Health Check*
+        //Request for conn status
+        [OperationContract(IsOneWay = true)]
+        void RequestConnStatus();
+        //Response to health check request
+        //No reply means offline or lag?
+        [OperationContract(IsOneWay = true)]
+        void ReplyConnStatus(string station);
 
     }
 
@@ -82,6 +89,12 @@ namespace CallOut_CodingServiceLib
         //Receive Coding Ack Message from Console and update
         [OperationContract(IsOneWay = true)]
         void RcvCodingAckMsg(CodingAckMessage codingAckMsg);
+
+        //Receive the conn status
+        [OperationContract(IsOneWay = true)]
+        void GatewayRcvConnStatus(string station);
+        [OperationContract(IsOneWay = true)]
+        void ConsoleRcvConnStatus();
 
     }
 
@@ -216,7 +229,7 @@ namespace CallOut_CodingServiceLib
         }
 
         //Sub to server to receive msg from server
-        public void ConsoleJoin(string userName)
+        public void ConsoleJoin(string console)
         {
             // Add the connected console channel into the list
             IMessageServiceCallback connectedConsole = OperationContext.Current.GetCallbackChannel<IMessageServiceCallback>();
@@ -224,14 +237,14 @@ namespace CallOut_CodingServiceLib
             if (!_ConsoleCallbackList.Contains(connectedConsole))
             {
                 _ConsoleCallbackList.Add(connectedConsole);//Note the callback list is just a list of channels.
-                _ConnectedConsoleList.Add(userName);
-                _ConnectedConsoleDict.Add(userName, connectedConsole);//Bind the username to the callback channel ID
+                _ConnectedConsoleList.Add(console);
+                _ConnectedConsoleDict.Add(console, connectedConsole);//Bind the username to the callback channel ID
                 _ConnectedConsoleNo++;
 
                 //Update the station status (for case if mutiple gateway existed)
                 foreach (StationStatus station in StationIDList)
                 {
-                    if (station.Station.Equals(userName))
+                    if (station.Station.Equals(console))
                     {
                         station.Status = "Online";
                     }
@@ -243,49 +256,42 @@ namespace CallOut_CodingServiceLib
             _GatewayCallbackList.ForEach(
                 delegate(IMessageServiceCallback gatewaycallback)
                 {
-                    gatewaycallback.EditConnStatus(userName, "Online");
+                    gatewaycallback.EditConnStatus(console, "Online");
                 });
 
         }
 
-        public void ConsoleLeave(string userName)
+        public void ConsoleLeave(string console)
         {
-            // Unsubscribe the user from the conversation.      
-            //IMessageServiceCallback connectedConsole = OperationContext.Current.GetCallbackChannel<IMessageServiceCallback>();
-            IMessageServiceCallback connectedConsole = _ConnectedConsoleDict[userName];
-
-            if (_ConsoleCallbackList.Contains(connectedConsole))
+            // Unsubscribe the user from the conversation. 
+            //if station is in the dictionary list (to avoid calling consoleLeave twice)
+            if (_ConnectedConsoleDict.ContainsKey(console))
             {
-                _ConsoleCallbackList.Remove(connectedConsole);
-                _ConnectedConsoleDict.Remove(userName);
-                _ConnectedConsoleList.Remove(userName);
-                _ConnectedConsoleNo--;
-                Debug.WriteLine(_ConnectedConsoleDict.Count().ToString());
+                IMessageServiceCallback connectedConsole = _ConnectedConsoleDict[console];
 
-                //Update the station status
-                foreach (StationStatus station in StationIDList)
+                if (_ConsoleCallbackList.Contains(connectedConsole))
                 {
-                    if (station.Station.Equals(userName))
+                    _ConsoleCallbackList.Remove(connectedConsole);
+                    _ConnectedConsoleDict.Remove(console);
+                    _ConnectedConsoleList.Remove(console);
+                    _ConnectedConsoleNo--;
+                    Debug.WriteLine(_ConnectedConsoleDict.Count().ToString());
+
+                    //Update the station status
+                    foreach (StationStatus station in StationIDList)
                     {
-                        station.Status = "Offline";
+                        if (station.Station.Equals(console))
+                        {
+                            station.Status = "Offline";
+                        }
                     }
                 }
-            }
 
-            _GatewayCallbackList.ForEach(
-                delegate(IMessageServiceCallback gatewaycallback)
-                {
-                    gatewaycallback.EditConnStatus(userName, "Offline");
-                });
-
-        }
-
-        public void BroadcastTestMsg(CodingIncidentMessage codingIncidentMsg)
-        {
-            foreach (string tmpAddr in _ConnectedConsoleList)
-            {
-                IMessageServiceCallback tmpCallback = _ConnectedConsoleDict[tmpAddr];
-                tmpCallback.ConsoleDisplayMsg(codingIncidentMsg);
+                _GatewayCallbackList.ForEach(
+                    delegate(IMessageServiceCallback gatewaycallback)
+                    {
+                        gatewaycallback.EditConnStatus(console, "Offline");
+                    });
             }
         }
 
@@ -318,6 +324,27 @@ namespace CallOut_CodingServiceLib
                 delegate(IMessageServiceCallback gatewaycallback)
                 {
                     gatewaycallback.RcvCodingAckMsg(codingAckMsg);
+                });
+        }
+
+        public void RequestConnStatus()
+        {
+            foreach(string station in _ConnectedConsoleList)
+            {
+                IMessageServiceCallback tmpCallback = _ConnectedConsoleDict[station];
+                if (((ICommunicationObject)tmpCallback).State == CommunicationState.Opened)
+                {
+                    tmpCallback.ConsoleRcvConnStatus();
+                }                
+            }
+        }
+
+        public void ReplyConnStatus(string station)
+        {
+            _GatewayCallbackList.ForEach(
+                delegate(IMessageServiceCallback gatewaycallback)
+                {
+                    gatewaycallback.GatewayRcvConnStatus(station);
                 });
         }
     }
@@ -417,44 +444,6 @@ namespace CallOut_CodingServiceLib
 
     //Object for binding to the list
 
-    //[DataContract]
-    //public class CodingStatus
-    //{
-    //    [DataMember]
-    //    public string IncidentID { get; set; }
-    //    [DataMember]
-    //    public string CodingID { get; set; }
-    //    [DataMember]
-    //    public string Received { get; set; }
-    //    [DataMember]
-    //    public string Updated { get; set; }
-    //    [DataMember]
-    //    public string Pending { get; set; }
-    //    [DataMember]
-    //    public string Acknowledged { get; set; }
-    //    [DataMember]
-    //    public string Rejected { get; set; }
-    //    [DataMember]
-    //    public string Failed { get; set; }
-    //}
-
-    //[DataContract]
-    //public class MessageStatus
-    //{
-    //    [DataMember]
-    //    public string CodingID { get; set; }
-    //    [DataMember]
-    //    public string AckTimeStamp { get; set; }
-    //    [DataMember]
-    //    public string AckFrom { get; set; }
-    //    [DataMember]
-    //    public string AckStatus { get; set; }
-    //    [DataMember]
-    //    public string AckNo { get; set; }
-    //    [DataMember]
-    //    public string AckTotal { get; set; }
-    //}
-
     [DataContract]
     public class StationStatus
     {
@@ -470,5 +459,6 @@ namespace CallOut_CodingServiceLib
         public string Station { get; set; }
         [DataMember]
         public string Update { get; set; }
+
     }
 }

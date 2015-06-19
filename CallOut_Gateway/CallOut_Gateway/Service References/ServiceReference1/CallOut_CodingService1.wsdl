@@ -65,14 +65,17 @@
   <wsdl:message name="CallOut_CodingService_ConsoleLeave_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsoleLeaveResponse" />
   </wsdl:message>
-  <wsdl:message name="CallOut_CodingService_BroadcastTestMsg_InputMessage">
-    <wsdl:part name="parameters" element="tns:BroadcastTestMsg" />
-  </wsdl:message>
   <wsdl:message name="CallOut_CodingService_TargetMsg_InputMessage">
     <wsdl:part name="parameters" element="tns:TargetMsg" />
   </wsdl:message>
   <wsdl:message name="CallOut_CodingService_AckCodingIncidentMsg_InputMessage">
     <wsdl:part name="parameters" element="tns:AckCodingIncidentMsg" />
+  </wsdl:message>
+  <wsdl:message name="CallOut_CodingService_RequestConnStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:RequestConnStatus" />
+  </wsdl:message>
+  <wsdl:message name="CallOut_CodingService_ReplyConnStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReplyConnStatus" />
   </wsdl:message>
   <wsdl:message name="CallOut_CodingService_ConsoleDisplayMsg_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ConsoleDisplayMsg" />
@@ -85,6 +88,12 @@
   </wsdl:message>
   <wsdl:message name="CallOut_CodingService_RcvCodingAckMsg_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RcvCodingAckMsg" />
+  </wsdl:message>
+  <wsdl:message name="CallOut_CodingService_GatewayRcvConnStatus_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GatewayRcvConnStatus" />
+  </wsdl:message>
+  <wsdl:message name="CallOut_CodingService_ConsoleRcvConnStatus_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ConsoleRcvConnStatus" />
   </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="CallOut_CodingService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetStationStatus">
@@ -126,14 +135,17 @@
       <wsdl:input wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/ConsoleLeave" message="tns:CallOut_CodingService_ConsoleLeave_InputMessage" />
       <wsdl:output wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/ConsoleLeaveResponse" message="tns:CallOut_CodingService_ConsoleLeave_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BroadcastTestMsg">
-      <wsdl:input wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/BroadcastTestMsg" message="tns:CallOut_CodingService_BroadcastTestMsg_InputMessage" />
-    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="TargetMsg">
       <wsdl:input wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/TargetMsg" message="tns:CallOut_CodingService_TargetMsg_InputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="AckCodingIncidentMsg">
       <wsdl:input wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/AckCodingIncidentMsg" message="tns:CallOut_CodingService_AckCodingIncidentMsg_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="RequestConnStatus">
+      <wsdl:input wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/RequestConnStatus" message="tns:CallOut_CodingService_RequestConnStatus_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ReplyConnStatus">
+      <wsdl:input wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/ReplyConnStatus" message="tns:CallOut_CodingService_ReplyConnStatus_InputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ConsoleDisplayMsg">
       <wsdl:output wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/ConsoleDisplayMsg" message="tns:CallOut_CodingService_ConsoleDisplayMsg_OutputCallbackMessage" />
@@ -146,6 +158,12 @@
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="RcvCodingAckMsg">
       <wsdl:output wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/RcvCodingAckMsg" message="tns:CallOut_CodingService_RcvCodingAckMsg_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GatewayRcvConnStatus">
+      <wsdl:output wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/GatewayRcvConnStatus" message="tns:CallOut_CodingService_GatewayRcvConnStatus_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ConsoleRcvConnStatus">
+      <wsdl:output wsaw:Action="CallOut_CodingServiceLib/CallOut_CodingService/ConsoleRcvConnStatus" message="tns:CallOut_CodingService_ConsoleRcvConnStatus_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
 </wsdl:definitions>

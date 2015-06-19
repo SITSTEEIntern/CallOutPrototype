@@ -204,13 +204,13 @@ namespace CallOut_Console
             //Start timer for 10 sec to auto reject
             System.Timers.Timer AutoRejectTimer = new System.Timers.Timer();
             AutoRejectTimer.Interval = 10000; //10 sec
-            AutoRejectTimer.Elapsed += delegate { Timeout(); };
+            AutoRejectTimer.Elapsed += delegate { Timeout(codingIncidentMsg.IncidentNo); };
             AutoRejectTimer.AutoReset = false;
             AutoRejectTimer.Start();
 
         }
 
-        public void Timeout()
+        public void Timeout(string incidentNo)
         {
             //Already ack or reject 10 sec do nth
             if (this.lblTestStatus.Text.Equals(""))
@@ -364,15 +364,27 @@ namespace CallOut_Console
             _uiSyncContext.Post(callback, "updatedetails");
         }
 
+        public void ConsoleRcvConnStatus()
+        {
+            SendOrPostCallback callback =
+                delegate(object state)
+                {
+                    _CallOut_CodingService.ReplyConnStatus(this.cbID.Text);
+                };
+
+            _uiSyncContext.Post(callback, "rcv conn status request");
+        }
+
         #region Methods not for Console
 
         public void EditConnStatus(string Name, string Status)
         { }
         public void RcvCodingAckMsg(CodingAckMessage codingAckMsg) 
         { }
-
         public void NotifyConsoleNotConnected(string userName, CodingIncidentMessage codingIncidentMsg)
         {}
+        public void GatewayRcvConnStatus(string station) 
+        { }
 
         #endregion
 

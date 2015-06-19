@@ -686,12 +686,6 @@ namespace CallOut_Gateway.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="CallOut_CodingServiceLib/CallOut_CodingService/ConsoleLeave", ReplyAction="CallOut_CodingServiceLib/CallOut_CodingService/ConsoleLeaveResponse")]
         System.Threading.Tasks.Task ConsoleLeaveAsync(string userName);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/BroadcastTestMsg")]
-        void BroadcastTestMsg(CallOut_Gateway.ServiceReference1.CodingIncidentMessage codingIncidentMsg);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/BroadcastTestMsg")]
-        System.Threading.Tasks.Task BroadcastTestMsgAsync(CallOut_Gateway.ServiceReference1.CodingIncidentMessage codingIncidentMsg);
-        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/TargetMsg")]
         void TargetMsg(string[] addressList, CallOut_Gateway.ServiceReference1.CodingIncidentMessage codingIncidentMsg);
         
@@ -703,6 +697,18 @@ namespace CallOut_Gateway.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/AckCodingIncidentMsg")]
         System.Threading.Tasks.Task AckCodingIncidentMsgAsync(CallOut_Gateway.ServiceReference1.CodingAckMessage codingAckMsg);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/RequestConnStatus")]
+        void RequestConnStatus();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/RequestConnStatus")]
+        System.Threading.Tasks.Task RequestConnStatusAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/ReplyConnStatus")]
+        void ReplyConnStatus(string station);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/ReplyConnStatus")]
+        System.Threading.Tasks.Task ReplyConnStatusAsync(string station);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -719,6 +725,12 @@ namespace CallOut_Gateway.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/RcvCodingAckMsg")]
         void RcvCodingAckMsg(CallOut_Gateway.ServiceReference1.CodingAckMessage codingAckMsg);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/GatewayRcvConnStatus")]
+        void GatewayRcvConnStatus(string station);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="CallOut_CodingServiceLib/CallOut_CodingService/ConsoleRcvConnStatus")]
+        void ConsoleRcvConnStatus();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -829,14 +841,6 @@ namespace CallOut_Gateway.ServiceReference1 {
             return base.Channel.ConsoleLeaveAsync(userName);
         }
         
-        public void BroadcastTestMsg(CallOut_Gateway.ServiceReference1.CodingIncidentMessage codingIncidentMsg) {
-            base.Channel.BroadcastTestMsg(codingIncidentMsg);
-        }
-        
-        public System.Threading.Tasks.Task BroadcastTestMsgAsync(CallOut_Gateway.ServiceReference1.CodingIncidentMessage codingIncidentMsg) {
-            return base.Channel.BroadcastTestMsgAsync(codingIncidentMsg);
-        }
-        
         public void TargetMsg(string[] addressList, CallOut_Gateway.ServiceReference1.CodingIncidentMessage codingIncidentMsg) {
             base.Channel.TargetMsg(addressList, codingIncidentMsg);
         }
@@ -851,6 +855,22 @@ namespace CallOut_Gateway.ServiceReference1 {
         
         public System.Threading.Tasks.Task AckCodingIncidentMsgAsync(CallOut_Gateway.ServiceReference1.CodingAckMessage codingAckMsg) {
             return base.Channel.AckCodingIncidentMsgAsync(codingAckMsg);
+        }
+        
+        public void RequestConnStatus() {
+            base.Channel.RequestConnStatus();
+        }
+        
+        public System.Threading.Tasks.Task RequestConnStatusAsync() {
+            return base.Channel.RequestConnStatusAsync();
+        }
+        
+        public void ReplyConnStatus(string station) {
+            base.Channel.ReplyConnStatus(station);
+        }
+        
+        public System.Threading.Tasks.Task ReplyConnStatusAsync(string station) {
+            return base.Channel.ReplyConnStatusAsync(station);
         }
     }
 }

@@ -39,6 +39,9 @@ namespace CallOut_Gateway
         //holding of all the coding message in order to hold the information of dispatch for adhoc request
         List<CodingIncidentMessage> _CodingIncidentList = new List<CodingIncidentMessage>();
 
+        //List of station that will be remove from service
+        List<string> _ToBeRemove;
+
         public Form1()
         {
             InitializeComponent();
@@ -64,6 +67,10 @@ namespace CallOut_Gateway
             InitCodingDataGrid();
             InitMessageDataGrid();
             InitStationDataGrid();
+
+            //Init Health Checker aka check for ocnsole connectivity
+            HealthCheck();
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -77,6 +84,60 @@ namespace CallOut_Gateway
             {
                 _CallOut_CADService.Close();
             }
+
+        }
+
+        private void InitToBeRemove()
+        {
+            _ToBeRemove = new List<string>();
+            foreach (string station in _CallOut_CodingService.GetConnectedConsole())
+            {
+                _ToBeRemove.Add(station);
+            }
+        }
+
+        private void HealthCheck()
+        {
+            InitToBeRemove();
+
+            //Have a timer that will broadcast message to connected console and expect reply within 5 second else disconnect
+            System.Timers.Timer HealthBroadcastTimer = new System.Timers.Timer();
+            HealthBroadcastTimer.Interval = 10000; //1min
+            HealthBroadcastTimer.Elapsed += delegate { HealthBroadcastTimeOut(); };
+            HealthBroadcastTimer.AutoReset = false;
+            HealthBroadcastTimer.Start();
+
+            //SendOrPostCallback callback =
+            //    delegate(object state)
+            //    {
+                
+            //    };
+
+            //_uiSyncContext.Post(callback, "Health Check");
+        }
+
+        private void HealthBroadcastTimeOut()
+        {
+            Debug.WriteLine("Health broadcast timeout");
+            //Broadcast message to all connected console
+            _CallOut_CodingService.RequestConnStatus();
+
+            System.Timers.Timer HealthResponseTimer = new System.Timers.Timer();
+            HealthResponseTimer.Interval = 5000; //5sec
+            HealthResponseTimer.Elapsed += delegate { HealthResponseTimeOut(); };
+            HealthResponseTimer.AutoReset = false;
+            HealthResponseTimer.Start();
+        }
+
+        private void HealthResponseTimeOut()
+        {
+            Debug.WriteLine("Health response timeout");
+            //Disconnected if there is no response
+            foreach(string station in _ToBeRemove){
+                _CallOut_CodingService.ConsoleLeave(station);
+            }
+
+            HealthCheck();
 
         }
 
@@ -474,7 +535,7 @@ namespace CallOut_Gateway
                                 }
                             }
 
-                            //Update and disconnect console
+                            //Update failed status on the console
                             foreach(string console in addressList){
                                 //update coding status
                                 UpdateCodingStatus(codingID, "Failed");
@@ -499,8 +560,6 @@ namespace CallOut_Gateway
 
                                 //Broadcast Coding status back to CAD (failed)
                                 SendBroadcastIncidentCoding(console, "Failed", unitcallsign.ToArray(), messagestatus);
-
-                                _CallOut_CodingService.ConsoleLeave(console);
                             }
                         }
                     }
@@ -773,6 +832,17 @@ namespace CallOut_Gateway
 
         #region CallOut_CodingServiceCallback Methods
 
+        public void GatewayRcvConnStatus(string station)
+        {
+            SendOrPostCallback callback =
+                delegate(object state)
+                {
+                    _ToBeRemove.Remove(station);
+                };
+
+            _uiSyncContext.Post(callback, "rcv conn status reply");
+        }
+
         public void EditConnStatus(string StationName, string Status)
         {
             SendOrPostCallback callback =
@@ -894,6 +964,8 @@ namespace CallOut_Gateway
         #region Methods not for Gateway
 
         public void ConsoleDisplayMsg(CodingIncidentMessage codingIncidentMsg)
+        { }
+        public void ConsoleRcvConnStatus()
         { }
 
         #endregion
